@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lung Cancer Risk Assessment - MediSync AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Additional styles for the lung cancer prediction form */
+    .prediction-form {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin: 40px auto;
+      max-width: 1000px;
+    }
+    
+    .prediction-form h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .form-section {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .form-section h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+    
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -10px;
+    }
+    
+    .form-group {
+      flex: 1;
+      min-width: 250px;
+      padding: 0 10px;
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+    
+    .form-group select,
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .form-group select:focus,
+    .form-group input:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    
+    .submit-btn {
+      background: var(--gradient-1);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      margin: 30px auto;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+    
+    .result-section {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin: 30px 0;
+      animation: slideDown 0.5s ease-out;
+      scroll-margin-top: 100px;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .prediction {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    
+    .prediction.high-risk {
+      background-color: #ffe5e5;
+      color: #d63031;
+    }
+    
+    .prediction.low-risk {
+      background-color: #e5ffe5;
+      color: #27ae60;
+    }
+    
+    .health-message {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    
+    select.form-control {
+      height: 45px;
+      font-size: 16px;
+    }
+    
+    .error-message {
+      background-color: #ffe6e6;
+      color: #d32f2f;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .health-message strong {
+      color: #333;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    .high-risk .health-message {
+      border-left: 4px solid #ff4444;
+    }
+
+    .low-risk .health-message {
+      border-left: 4px solid #00c853;
+    }
+    
+    @media (max-width: 768px) {
+      .prediction-form {
+        padding: 20px;
+      }
+      
+      .form-group {
+        min-width: 100%;
+      }
+    }
+
+    .probability {
+      font-size: 18px;
+      margin-top: 10px;
+      padding: 5px;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .high-risk .probability {
+      color: #d63031;
+    }
+
+    .low-risk .probability {
+      color: #27ae60;
+    }
+
+    /* Ensure smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Add spacing after form submission */
+    form {
+      margin-bottom: 20px;
+    }
+
+    .profile-menu {
+      position: relative;
+    }
+
+    .profile-button {
+      background: var(--gradient-1);
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      padding: 8px 0;
+      min-width: 150px;
+      z-index: 1000;
+    }
+
+    .profile-menu:hover .profile-dropdown {
+      display: block;
+    }
+
+    .profile-dropdown a {
+      display: block;
+      padding: 8px 16px;
+      color: #333;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-dropdown a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .login-button {
+      background: var(--gradient-1);
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      const resultSection = document.querySelector('.result-section');
+
+      // If there's a result section, scroll to it smoothly
+      if (resultSection) {
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      // Handle form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Show loading state
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Processing...';
+        submitBtn.disabled = true;
+
+        try {
+          // Submit form data using fetch
+          const formData = new FormData(form);
+          const response = await fetch('/predict', {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          // Get the HTML response
+          const html = await response.text();
+
+          // Create a temporary div to parse the HTML
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+
+          // Find the result section in the response
+          const newResultSection = tempDiv.querySelector('.result-section');
+
+          if (newResultSection) {
+            // Remove existing result section if it exists
+            const existingResult = document.querySelector('.result-section');
+            if (existingResult) {
+              existingResult.remove();
+            }
+
+            // Insert the new result section after the form
+            form.insertAdjacentElement('afterend', newResultSection);
+
+            // Scroll to the new result section
+            newResultSection.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center'
+            });
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          // If there's an error, submit the form normally
+          form.submit();
+        } finally {
+          // Restore button state
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/MEDISYNC 2.jpg" alt="MediSync AI Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="solutions.html">Solutions</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/login" class="login-button">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="features-hero">
+      <div class="features-content">
+        <h1>Lung Cancer Risk Assessment</h1>
+        <p>Use our advanced AI model to assess your risk of lung cancer based on symptoms and lifestyle factors.</p>
+      </div>
+    </section>
+
+    <section class="prediction-form">
+      <h2>Risk Assessment Form</h2>
+      
+      {% if error %}
+      <div class="error-message">
+        {{ error }}
+      </div>
+      {% endif %}
+
+      <form action="/predict" method="post">
+        <div class="form-section">
+          <h3>Basic Information</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select class="form-select" id="gender" name="gender" required>
+                <option value="1" {% if result and result.form_data.gender == '1' %}selected{% endif %}>Male</option>
+                <option value="2" {% if result and result.form_data.gender == '2' %}selected{% endif %}>Female</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" class="form-control" id="age" name="age" min="0" max="120" required
+                     value="{% if result %}{{ result.form_data.age }}{% endif %}">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Lifestyle Factors</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="smoking">Smoking</label>
+              <select class="form-select" id="smoking" name="smoking" required>
+                <option value="1" {% if result and result.form_data.smoking == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.smoking == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="yellow_fingers">Yellow Fingers</label>
+              <select class="form-select" id="yellow_fingers" name="yellow_fingers" required>
+                <option value="1" {% if result and result.form_data.yellow_fingers == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.yellow_fingers == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="anxiety">Anxiety</label>
+              <select class="form-select" id="anxiety" name="anxiety" required>
+                <option value="1" {% if result and result.form_data.anxiety == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.anxiety == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="peer_pressure">Peer Pressure</label>
+              <select class="form-select" id="peer_pressure" name="peer_pressure" required>
+                <option value="1" {% if result and result.form_data.peer_pressure == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.peer_pressure == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Health Factors</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="chronic_disease">Chronic Disease</label>
+              <select class="form-select" id="chronic_disease" name="chronic_disease" required>
+                <option value="1" {% if result and result.form_data.chronic_disease == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.chronic_disease == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fatigue">Fatigue</label>
+              <select class="form-select" id="fatigue" name="fatigue" required>
+                <option value="1" {% if result and result.form_data.fatigue == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.fatigue == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="allergy">Allergy</label>
+              <select class="form-select" id="allergy" name="allergy" required>
+                <option value="1" {% if result and result.form_data.allergy == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.allergy == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="wheezing">Wheezing</label>
+              <select class="form-select" id="wheezing" name="wheezing" required>
+                <option value="1" {% if result and result.form_data.wheezing == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.wheezing == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="alcohol_consuming">Alcohol Consuming</label>
+              <select class="form-select" id="alcohol_consuming" name="alcohol_consuming" required>
+                <option value="1" {% if result and result.form_data.alcohol_consuming == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.alcohol_consuming == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="coughing">Coughing</label>
+              <select class="form-select" id="coughing" name="coughing" required>
+                <option value="1" {% if result and result.form_data.coughing == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.coughing == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Symptoms</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="shortness_of_breath">Shortness of Breath</label>
+              <select class="form-select" id="shortness_of_breath" name="shortness_of_breath" required>
+                <option value="1" {% if result and result.form_data.shortness_of_breath == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.shortness_of_breath == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="swallowing_difficulty">Swallowing Difficulty</label>
+              <select class="form-select" id="swallowing_difficulty" name="swallowing_difficulty" required>
+                <option value="1" {% if result and result.form_data.swallowing_difficulty == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.swallowing_difficulty == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="chest_pain">Chest Pain</label>
+              <select class="form-select" id="chest_pain" name="chest_pain" required>
+                <option value="1" {% if result and result.form_data.chest_pain == '1' %}selected{% endif %}>Yes</option>
+                <option value="0" {% if result and result.form_data.chest_pain == '0' %}selected{% endif %}>No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Algorithm Selection</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="algorithm"><strong>Select Prediction Algorithm:</strong></label>
+              <select class="form-control" id="algorithm" name="algorithm" required>
+                {% for key, algo in algorithms.items() %}
+                <option value="{{ key }}" {% if result and result.debug_info.algorithm == key %}selected{% endif %}>
+                  {{ algo.name }} (Accuracy: {{ algo.accuracy }})
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Assess Risk</button>
+      </form>
+
+      {% if result %}
+      <div class="result-section">
+        <h3>Prediction Result</h3>
+        <p><strong>Algorithm Used:</strong> {{ result.algorithm.name }} (Accuracy: {{ result.algorithm.accuracy }})</p>
+        <div class="prediction {% if result.prediction == 'High Risk' %}high-risk{% else %}low-risk{% endif %}">
+          {{ result.prediction }}
+          {% if result.probability %}
+          <div class="probability">
+            Risk Probability: {{ result.probability }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="health-message">
+          {{ result.health_message | safe }}
+        </div>
+      </div>
+      {% endif %}
+    </section>
+
+    <section class="feature-cta">
+      <div class="container">
+        <h2>Want to Learn More About Our AI Healthcare Solutions?</h2>
+        <p>Discover how MediSync AI is revolutionizing healthcare with advanced AI technology.</p>
+        <a href="features.html" class="btn">Explore Features</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div>
+      <p>&copy; 2025 MediSync AI. All rights reserved.</p>
+    </div>
+    <div>
+      <a href="#">Support</a>
+    </div>
+  </footer>
+</body>
+</html>

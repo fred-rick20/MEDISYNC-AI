@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Diagnosis Tools - MediSync AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tools-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .tool-content {
+            padding: 25px;
+        }
+
+        .tool-title {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .tool-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .tool-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--gradient-1);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tool-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .accuracy-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #e5ffe5;
+            color: #27ae60;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .username {
+            color: var(--primary);
+            font-weight: 500;
+            padding: 10px 15px;
+        }
+
+        .login-button {
+            background: var(--gradient-1);
+            color: white !important;
+            padding: 8px 16px !important;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-button::after {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/MEDISYNC 2.jpg" alt="MediSync AI Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                {% if 'user_id' in session %}
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/login" class="login-button">Sign In</a></li>
+                {% else %}
+                    <li><a href="/login" class="login-button">Sign In</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="features-hero">
+            <div class="features-content">
+                <h1>AI Diagnosis Tools</h1>
+                <p>Choose from our advanced AI-powered diagnostic tools for accurate health risk assessments.</p>
+            </div>
+        </section>
+
+        <section class="tools-container">
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <img src="assets/lung.jpg" alt="Lung Cancer Assessment" class="tool-image">
+                    <div class="tool-content">
+                        <div class="accuracy-badge">98% Accuracy</div>
+                        <h2 class="tool-title">Lung Cancer Risk Assessment</h2>
+                        <p class="tool-description">Evaluate your risk of lung cancer using our advanced AI model that analyzes various symptoms and lifestyle factors.</p>
+                        <a href="/lung-cancer-prediction" class="tool-button">Start Assessment</a>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <img src="assets/female-breast-anatomy.jpg" alt="Breast Cancer Assessment" class="tool-image">
+                    <div class="tool-content">
+                        <div class="accuracy-badge">96% Accuracy</div>
+                        <h2 class="tool-title">Breast Cancer Risk Assessment</h2>
+                        <p class="tool-description">Get a comprehensive breast cancer risk evaluation based on diagnostic measurements using state-of-the-art machine learning.</p>
+                        <a href="/breast-cancer-prediction" class="tool-button">Start Assessment</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div>
+            <p>&copy; 2025 MediSync AI. All rights reserved.</p>
+        </div>
+        <div>
+            <a href="#">Support</a>
+        </div>
+    </footer>
+</body>
+</html> 

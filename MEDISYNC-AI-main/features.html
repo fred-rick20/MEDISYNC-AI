@@ -1,0 +1,219 @@
+<!-- services.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Features - MediSync AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/MEDISYNC 2.jpg" alt="MediSync AI Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="features.html" class="active">Features</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="solutions.html">Solutions</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/login" class="login-button">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="features-hero">
+      <div class="features-content">
+        <h1>Innovative Features</h1>
+        <p>Discover how MediSync AI's cutting-edge features are transforming healthcare delivery through intelligent technology and data-driven solutions.</p>
+      </div>
+    </section>
+
+    <section class="feature-details">
+      <div class="container">
+        <div class="feature-card">
+          <div class="feature-image">
+            <img src="assets/medical AI diagonstics.webp" alt="AI Diagnostics">
+          </div>
+          <div class="feature-text">
+            <h2>AI-Driven Diagnostics</h2>
+            <ul>
+              <li>Advanced symptom analysis algorithms</li>
+              <li>Medical history pattern recognition</li>
+              <li>Real-time diagnostic suggestions</li>
+              <li>High-accuracy prediction models</li>
+              <li><a href="/ai-diagnosis" class="cta-button">Try our AI Diagnosis Tools</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card reverse">
+          <div class="feature-image">
+            <img src="assets/telemedicine.jpg" alt="Patient Engagement">
+          </div>
+          <div class="feature-text">
+            <h2>Patient-Doctor Matching</h2>
+            <ul>
+              <li>Intelligent specialist matching</li>
+              <li>Appointment scheduling optimization</li>
+              <li>Real-time availability updates</li>
+              <li>Patient preference learning</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-image">
+            <img src="assets/hospital managment system.jpg" alt="EHR Management">
+          </div>
+          <div class="feature-text">
+            <h2>Electronic Health Records</h2>
+            <ul>
+              <li>Comprehensive record organization</li>
+              <li>Secure data management</li>
+              <li>Automated updates and tracking</li>
+              <li>Integration with existing systems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="additional-features">
+      <div class="container">
+        <h2>More Features</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <h3>Remote Monitoring</h3>
+            <p>Track patient health metrics in real-time with automated alerts and trend analysis.</p>
+          </div>
+          <div class="feature-item">
+            <h3>Healthcare Chatbot</h3>
+            <p>24/7 AI-powered assistance for medical queries and basic health guidance.</p>
+          </div>
+          <div class="feature-item">
+            <h3>Data Analytics</h3>
+            <p>Advanced analytics for healthcare trends and operational insights.</p>
+          </div>
+          <div class="feature-item">
+            <h3>Compliance Management</h3>
+            <p>Automated compliance with HIPAA, GDPR, and healthcare regulations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to Experience the Future of Healthcare?</h2>
+          <p>Start using our AI-powered diagnostic tools today.</p>
+          <a href="/ai-diagnosis" class="cta-button">Try Our AI Tools</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div>
+      <p>&copy; 2025 MediSync AI. All rights reserved.</p>
+    </div>
+    <div>
+      <a href="#">Support</a>
+    </div>
+  </footer>
+
+  <style>
+    .profile-menu {
+      position: relative;
+    }
+
+    .profile-button {
+      background: var(--gradient-1);
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      padding: 8px 0;
+      min-width: 150px;
+      z-index: 1000;
+    }
+
+    .profile-menu:hover .profile-dropdown {
+      display: block;
+    }
+
+    .profile-dropdown a {
+      display: block;
+      padding: 8px 16px;
+      color: #333;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-dropdown a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .login-button {
+      background: var(--gradient-1);
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .try-ai-button {
+      display: none;
+    }
+
+    .feature-text .cta-button {
+      display: inline-block;
+      background: var(--gradient-1);
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .feature-text .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</body>
+</html>
